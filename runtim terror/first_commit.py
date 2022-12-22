@@ -18,7 +18,7 @@ data.shape
 data.isnull().sum()
 data.describe()
 
-#Checking For Null Values.
+#Checking For Null Values , here we are concerned about cleaning of data.
 data['heart rate']=data['heart rate'].fillna(data['heart rate'].mean()) 
 data['Pulse']=data['Pulse'].fillna(data['Pulse'].mean())
 data['temperature']=data['temperature'].fillna(data['temperature'].mean())
