@@ -1,25 +1,24 @@
 !/usr/bin/env python
 
 #------------------------------------------------------------
-#PATIENT MONITORING SYSTEM
-#MADE BY SAKSHAM SINGH, MAIT
-#        ISHAAN SANGWAN, MAIT
-#DATE: 22/12/22
-#---------------------------------------------------------
+##############################################################     PATIENT MONITORING SYSTEM     #######################################################################
+#MADE BY :SAKSHAM SINGH, MAIT , 2nd Yr.
+#        :ISHAAN SANGWAN, MAIT , 2nd Yr.
+#        :DATE: 22/12/22
+#---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-""" This code cleans the data set we got from kaggle" of over a 1000 records"""
-
+                                        """ This code cleans the data set we got from kaggle of  1000+ records"""
+#importing libraries.
 import pandas as pd
 import numpy as np
 
-data=pd.read_excel('dataset.xlsx')
-
+#Importing the dataset
+data=pd.read_excel('dataset.xlsx')#commited in same repository
 data.shape
-
 data.isnull().sum()
-
 data.describe()
 
+#Checking For Null Values.
 data['heart rate']=data['heart rate'].fillna(data['heart rate'].mean()) 
 data['Pulse']=data['Pulse'].fillna(data['Pulse'].mean())
 data['temperature']=data['temperature'].fillna(data['temperature'].mean())
@@ -34,5 +33,6 @@ data['outcome']=data['outcome'].fillna(data['outcome'].min())
 
 data.isnull().sum()
 
+#Here we divided the columns into X and Y variables so as to  begin our training and testing operations.
 X=data.drop('outcome',axis=1)
 Y=data['outcome']
