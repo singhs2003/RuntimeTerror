@@ -29,8 +29,8 @@ HHHHHHHHH     HHHHHHHHH    eeeeeeeeeeeeeeAAAAAAA                   AAAAAAAllllll
 ***********************************************************************************************************************************
 
 
-Machine learning algortihm to read data from patient and monitor them constantly and if the stats are in the danger zone 
-it return a value 1 which will be later read and take proper measures to inform the staff
+Machine learning algortihm to read data from patient , and  monitor them constantly and if the stats are in the danger zone or some abnormality is witnessed ,
+it return a value 1 which will be later read , and communicated to staff so they can take proper measures to inform the staff
 
 ************************************************************************************************************************************
 
@@ -42,50 +42,29 @@ Date: 	22/12/2022
 *******************************************************************************************************************************
 	
 """
-from sklearn.model_selection import train_test_split  
-
 #to split array or data in train and test part
-
-
+from sklearn.model_selection import train_test_split  
+#declaring variables for the same
 X_train,X_test,Y_train,Y_test=train_test_split(X,Y,test_size=0.2,random_state=42)
 
 
 
-# to create pipeline output of one step as input in nxt step , diff classificatn models
-#from sklearn import preprocessing
-
-from sklearn.preprocessing import StandardScaler
+#from sklearn importing different models which will power the the algorithm and then we will check them for accuracy.
 
 # It standardizes features by subtracting the mean value from the feature and then dividing the result by feature standard deviation.i.e
 #values differ in range or are in different units.
-
-
+from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LogisticRegression
 from sklearn.neighbors import KNeighborsClassifier
-
-
-# grouping of items eclidean distance column in table assume k=3
-
 from sklearn.svm import SVC
-
-# sets plane between two categories so that dist between pts of both categories is max
-
 from sklearn.tree import DecisionTreeClassifier
-
-# classes may not be seperable by a linear line , it decides line by fact that try to maximizes inf ogain we want pure node, calculates entroy
-#info gain entropy of prent - entropy of child so higher info gain is favoured and model compares every possible
-#to max info gain splits recursively to 
-
 from sklearn.ensemble import RandomForestClassifier
-
-# better than decision tree 
-
 from sklearn.ensemble import GradientBoostingClassifier
-
+#For creating pipeline
 from sklearn.pipeline import Pipeline
 
 
-#  creating a machine learning pipeline for standarising the raw data 
+#  creating a machine learning pipeline for standarising the raw data , we are doing for all models to test them seperately for accuracy.
 
 
 pipeline_lr=Pipeline([('scalar1',StandardScaler()),('lr_classifier',LogisticRegression())])
@@ -96,37 +75,28 @@ pipeline_rf=Pipeline([('rf_classifier',RandomForestClassifier())])
 pipeline_gbc=Pipeline([('gbc_classifier',GradientBoostingClassifier())])
 
 
-# list for pipelines
+# list of pipelines
 pipelines=[pipeline_lr,pipeline_knn,pipeline_svc,pipeline_dt,pipeline_rf,pipeline_gbc]
-
-
-pipelines
 
 # train pipelines
 for pipe in pipelines:
     pipe.fit(X_train,Y_train)
     
-
-pipe_dict={0:'LR',1:'KNN',2:'SVC',3:'DT',4:'RF',5:'GBC'}
-
-
 # pipe_dict 
 # Logisticregression,KNeighborsClassifier,SVC,DecisionTreeClassifier,RandomForestClassifier,GradientBoostingClassifier
-
+pipe_dict={0:'LR',1:'KNN',2:'SVC',3:'DT',4:'RF',5:'GBC'}
 
 for i,model in enumerate(pipelines):
     print("{}Test Accuracy:{}".format(pipe_dict[i],model.score(X_test,Y_test)*100))
+#Now we have got our accuracy of all models we compared and found RandomForestClassifier to best suit our model.
 
-
+#So now train it over whole data
 from sklearn.ensemble import RandomForestClassifier
 
 X=data.drop('outcome',axis=1)
 Y=data['outcome']
 
 rf=RandomForestClassifier()
-
-
 rf.fit(X,Y)
 
 
-data.columns
