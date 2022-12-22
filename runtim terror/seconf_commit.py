@@ -38,6 +38,7 @@ Date: 	22/12/2022
 *******************************************************************************************************************************
 	
 """
+import first_commt
 from sklearn.model_selection import train_test_split  
 
 #to split array or data in train and test part
