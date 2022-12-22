@@ -7,7 +7,7 @@
 #DATE: 22/12/22
 #---------------------------------------------------------
 
-""" This code cleans the data set we got from kaggle" of over a 1000 records""
+""" This code cleans the data set we got from kaggle" of over a 1000 records"""
 
 import pandas as pd
 import numpy as np
